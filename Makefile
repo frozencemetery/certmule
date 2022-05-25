@@ -116,3 +116,6 @@ archive:
 	@dir=$$PWD; cd /tmp; tar -c --bzip2 -f $$dir/certmule-$(VERSION).tar.bz2 certmule-$(VERSION)
 	@rm -rf /tmp/certmule-$(VERSION)
 	@echo "The archive is in certmule-$(VERSION).tar.bz2"
+
+update:
+	git submodule update --init --recursive
