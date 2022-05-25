@@ -1,0 +1,29 @@
+{
+    "name": "pull-request",
+    "on": {
+        "push": { "branches": "main" },
+        "pull_request": { "branches": "main" },
+    },
+    "jobs": {
+        "linux": {
+            "runs-on": "ubuntu-latest",
+            "strategy": {
+                "fail-fast": false,
+                "matrix": {
+                    "container": [
+                        "f35", "f36", "centos8", "centos9",
+                    ],
+                },
+            },
+            "container": "vathpela/efi-ci:${{ matrix.container }}-x64",
+            "steps": [
+                {
+                    "uses": "actions/checkout@v2",
+                    "with": { "submodules": "recursive" },
+                },
+                { "run": "make update" },
+                { "run": "make" },
+            ],
+        },
+    },
+}
